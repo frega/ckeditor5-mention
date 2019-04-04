@@ -285,8 +285,9 @@ describe( 'MentionUI', () => {
 		describe( 'static list with large set of results', () => {
 			const bigList = {
 				marker: '@',
-				feed: [
-					'a01', 'a02', 'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10', 'a11', 'a12'
+				feed: () => [
+					'a01', 'a02', 'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10',
+					'a11', 'a12', 'a13', 'a14', 'a15', 'a16', 'a17', 'a18', 'a19', 'a20'
 				]
 			};
 
@@ -319,7 +320,10 @@ describe( 'MentionUI', () => {
 					.then( () => {
 						expect( panelView.isVisible ).to.be.true;
 
-						expectChildViewsIsOnState( [ true, false, false, false, false, false, false, false, false, false ] );
+						expectChildViewsIsOnState( [
+							true, false, false, false, false, false, false, false, false, false,
+							false, false, false, false, false, false, false, false, false, false
+						] );
 
 						const arrowDownEvtData = {
 							keyCode: keyCodes.arrowdown,
@@ -336,7 +340,10 @@ describe( 'MentionUI', () => {
 						fireKeyDownEvent( arrowDownEvtData );
 						expect( mentionsView.element.scrollTop ).to.equal( 0 );
 
-						expectChildViewsIsOnState( [ false, true, false, false, false, false, false, false, false, false ] );
+						expectChildViewsIsOnState( [
+							false, true, false, false, false, false, false, false, false, false,
+							false, false, false, false, false, false, false, false, false, false
+						] );
 
 						fireKeyDownEvent( arrowUpEvtData );
 						console.log( JSON.stringify( mentionsView.element.getBoundingClientRect() ) );
@@ -345,11 +352,17 @@ describe( 'MentionUI', () => {
 
 						console.log( mentionsView.element.scrollTop );
 
-						expectChildViewsIsOnState( [ false, false, false, false, false, false, false, false, false, true ] );
+						expectChildViewsIsOnState( [
+							false, false, false, false, false, false, false, false, false, false,
+							false, false, false, false, false, false, false, false, false, true
+						] );
 						expect( mentionsView.element.scrollTop ).to.be.not.equal( 0 );
 
 						fireKeyDownEvent( arrowDownEvtData );
-						expectChildViewsIsOnState( [ true, false, false, false, false, false, false, false, false, false ] );
+						expectChildViewsIsOnState( [
+							true, false, false, false, false, false, false, false, false, false,
+							false, false, false, false, false, false, false, false, false, false
+						] );
 						expect( mentionsView.element.scrollTop ).to.equal( 0 );
 					} );
 			} );
