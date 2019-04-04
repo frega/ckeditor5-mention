@@ -308,7 +308,7 @@ describe( 'MentionUI', () => {
 					} );
 			} );
 
-			it( 'should scroll mention panel to the selected item', () => {
+			it.only( 'should scroll mention panel to the selected item', () => {
 				setData( model, '<paragraph>foo []</paragraph>' );
 
 				model.change( writer => {
@@ -339,7 +339,11 @@ describe( 'MentionUI', () => {
 						expectChildViewsIsOnState( [ false, true, false, false, false, false, false, false, false, false ] );
 
 						fireKeyDownEvent( arrowUpEvtData );
+						console.log( JSON.stringify( mentionsView.element.getBoundingClientRect() ) );
+						console.log( JSON.stringify( listView.items.get( 9 ).element.getBoundingClientRect() ) );
 						fireKeyDownEvent( arrowUpEvtData );
+
+						console.log( mentionsView.element.scrollTop );
 
 						expectChildViewsIsOnState( [ false, false, false, false, false, false, false, false, false, true ] );
 						expect( mentionsView.element.scrollTop ).to.be.not.equal( 0 );
